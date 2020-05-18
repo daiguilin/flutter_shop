@@ -1,7 +1,7 @@
 /*
  * @Author: daiGuilin
  * @Date: 2020-05-17 16:19:41
- * @LastEditTime: 2020-05-17 16:57:43
+ * @LastEditTime: 2020-05-18 21:25:19
  * @LastEditors: daiGuilin
  */
 import 'package:flutter/material.dart';
@@ -11,6 +11,7 @@ import 'home_page.dart';
 import 'cart_page.dart';
 import 'cart_page.dart';
 import 'member_page.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class IndexPage extends StatefulWidget {
   @override
@@ -41,6 +42,11 @@ class _IndexPageState extends State<IndexPage> {
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(
+      context,
+      width: 750,
+      height: 1334,
+    );
     return Scaffold(
       backgroundColor: Color.fromRGBO(244, 245, 245, 1.0),
       bottomNavigationBar: BottomNavigationBar(
