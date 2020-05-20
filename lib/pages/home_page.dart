@@ -1,7 +1,7 @@
 /*
  * @Author: daiGuilin
  * @Date: 2020-05-17 16:41:56
- * @LastEditTime: 2020-05-19 21:20:02
+ * @LastEditTime: 2020-05-20 10:06:44
  * @LastEditors: daiGuilin
  */
 import 'dart:convert';
@@ -11,6 +11,7 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../service/service_method.dart';
 import 'package:url_launcher/url_launcher.dart';
+import './recommend.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -40,13 +41,16 @@ class _HomePageState extends State<HomePage> {
                         data['data']['shopInfo']['leaderImage'];
                     String leaderPhone =
                         data['data']['shopInfo']['leaderPhone'];
+                    List<Map> recommendList =
+                        (data['data']['recommend'] as List).cast(); // 商品推荐
                     return Column(
                       children: <Widget>[
                         SwiperDiy(swiperDateList: swiper),
                         TopNavigator(navigatorList: navigatorList),
                         AdBanner(adPicture: adPicture),
                         LeaderPhone(
-                            leaderImage: leaderImage, leaderPhone: leaderPhone)
+                            leaderImage: leaderImage, leaderPhone: leaderPhone),
+                        Recommend(recommendList: recommendList)
                       ],
                     );
                   } else {
