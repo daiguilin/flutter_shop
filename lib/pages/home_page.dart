@@ -1,7 +1,7 @@
 /*
  * @Author: daiGuilin
  * @Date: 2020-05-17 16:41:56
- * @LastEditTime: 2020-05-18 21:53:15
+ * @LastEditTime: 2020-05-19 21:20:02
  * @LastEditors: daiGuilin
  */
 import 'dart:convert';
@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../service/service_method.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -33,10 +34,19 @@ class _HomePageState extends State<HomePage> {
                     List<Map> swiper = (data['data']['slides'] as List).cast();
                     List<Map> navigatorList =
                         (data['data']['category'] as List).cast();
+                    String adPicture =
+                        data['data']['advertesPicture']['PICTURE_ADDRESS'];
+                    String leaderImage =
+                        data['data']['shopInfo']['leaderImage'];
+                    String leaderPhone =
+                        data['data']['shopInfo']['leaderPhone'];
                     return Column(
                       children: <Widget>[
                         SwiperDiy(swiperDateList: swiper),
-                        TopNavigator(navigatorList: navigatorList)
+                        TopNavigator(navigatorList: navigatorList),
+                        AdBanner(adPicture: adPicture),
+                        LeaderPhone(
+                            leaderImage: leaderImage, leaderPhone: leaderPhone)
                       ],
                     );
                   } else {
@@ -79,6 +89,7 @@ class SwiperDiy extends StatelessWidget {
   }
 }
 
+//网格列表
 class TopNavigator extends StatelessWidget {
   final List navigatorList;
   TopNavigator({Key key, this.navigatorList}) : super(key: key);
@@ -111,6 +122,43 @@ class TopNavigator extends StatelessWidget {
           return _gridViewItemUI(context, item);
         }).toList(), //注意：需要进行类型转换
       ),
+    );
+  }
+}
+
+//广告模块
+class AdBanner extends StatelessWidget {
+  final String adPicture;
+  const AdBanner({Key key, this.adPicture}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Image.network(adPicture),
+    );
+  }
+}
+
+//店长电话模块
+class LeaderPhone extends StatelessWidget {
+  final String leaderImage; //店长图片
+  final String leaderPhone; //店长电话
+  void _launchURL() async {
+    String url = 'tel:' + leaderPhone;
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  const LeaderPhone({Key key, this.leaderImage, this.leaderPhone})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: InkWell(onTap: _launchURL, child: Image.network(leaderImage)),
     );
   }
 }
