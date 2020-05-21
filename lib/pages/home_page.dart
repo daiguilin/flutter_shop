@@ -1,7 +1,7 @@
 /*
  * @Author: daiGuilin
  * @Date: 2020-05-17 16:41:56
- * @LastEditTime: 2020-05-21 15:23:08
+ * @LastEditTime: 2020-05-21 16:15:07
  * @LastEditors: daiGuilin
  */
 import 'dart:convert';
@@ -14,6 +14,7 @@ import 'package:url_launcher/url_launcher.dart';
 import './recommend.dart';
 import "./floor_title.dart";
 import "./floor_content.dart";
+import './hot_goods.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -28,7 +29,15 @@ class _HomePageState extends State<HomePage>
   @override
   void initState() {
     super.initState();
-    print('111111111111111111111111111');
+    print('111111111111111111111111111'); //测试页面切换时是否保存状态
+  }
+
+  _getHomePageContent() {
+    var formData = {'lon': '115.02932', 'lat': '35.76189'};
+    return request('homePageContent', formData).then((val) {
+      print('首页内容==$val');
+      return val;
+    });
   }
 
   @override
@@ -38,7 +47,7 @@ class _HomePageState extends State<HomePage>
             appBar: AppBar(title: Text('百姓生活+')),
             body: SingleChildScrollView(
               child: FutureBuilder(
-                future: getHomePageContent(),
+                future: _getHomePageContent(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     var data = jsonDecode(snapshot.data.toString());
@@ -79,6 +88,7 @@ class _HomePageState extends State<HomePage>
                         FloorContent(floorGoodsList: floor2),
                         FloorTitle(picture_address: floor3Title),
                         FloorContent(floorGoodsList: floor3),
+                        HotGoods()
                       ],
                     );
                   } else {
