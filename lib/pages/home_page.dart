@@ -1,7 +1,7 @@
 /*
  * @Author: daiGuilin
  * @Date: 2020-05-17 16:41:56
- * @LastEditTime: 2020-05-20 10:06:44
+ * @LastEditTime: 2020-05-20 10:33:08
  * @LastEditors: daiGuilin
  */
 import 'dart:convert';
@@ -18,8 +18,16 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage>
+    with AutomaticKeepAliveClientMixin {
   String homePageContent = '正在获取数据';
+  @override
+  bool get wantKeepAlive => true;
+  @override
+  void initState() {
+    super.initState();
+    print('111111111111111111111111111');
+  }
 
   @override
   Widget build(BuildContext context) {

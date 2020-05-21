@@ -1,7 +1,7 @@
 /*
  * @Author: daiGuilin
  * @Date: 2020-05-17 16:19:41
- * @LastEditTime: 2020-05-18 21:25:19
+ * @LastEditTime: 2020-05-20 11:10:13
  * @LastEditors: daiGuilin
  */
 import 'package:flutter/material.dart';
@@ -19,6 +19,7 @@ class IndexPage extends StatefulWidget {
 }
 
 class _IndexPageState extends State<IndexPage> {
+  PageController _pageController;
   final List<BottomNavigationBarItem> bottomTabs = [
     BottomNavigationBarItem(icon: Icon(CupertinoIcons.home), title: Text('首页')),
     BottomNavigationBarItem(
@@ -29,15 +30,28 @@ class _IndexPageState extends State<IndexPage> {
         icon: Icon(CupertinoIcons.home), title: Text('会员中心')),
   ];
 
-  final List tabBodies = [HomePage(), CategoryPage(), CartPage(), MemberPage()];
+  final List<Widget> tabBodies = [
+    HomePage(),
+    CategoryPage(),
+    CartPage(),
+    MemberPage()
+  ];
 
   int currentIndex = 0;
   var currentPage;
 
   @override
   void initState() {
-    super.initState();
     currentPage = tabBodies[currentIndex];
+    _pageController = new PageController()
+      ..addListener(() {
+        if (currentPage != _pageController.page.round()) {
+          setState(() {
+            currentPage = _pageController.page.round();
+          });
+        }
+      });
+    super.initState();
   }
 
   @override
@@ -60,7 +74,10 @@ class _IndexPageState extends State<IndexPage> {
           });
         },
       ),
-      body: currentPage,
+      body: IndexedStack(
+        index: currentIndex,
+        children: tabBodies,
+      ),
     );
   }
 }
