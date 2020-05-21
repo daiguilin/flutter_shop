@@ -1,7 +1,7 @@
 /*
  * @Author: daiGuilin
  * @Date: 2020-05-17 16:41:56
- * @LastEditTime: 2020-05-20 10:33:08
+ * @LastEditTime: 2020-05-21 15:23:08
  * @LastEditors: daiGuilin
  */
 import 'dart:convert';
@@ -12,6 +12,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../service/service_method.dart';
 import 'package:url_launcher/url_launcher.dart';
 import './recommend.dart';
+import "./floor_title.dart";
+import "./floor_content.dart";
 
 class HomePage extends StatefulWidget {
   @override
@@ -51,6 +53,18 @@ class _HomePageState extends State<HomePage>
                         data['data']['shopInfo']['leaderPhone'];
                     List<Map> recommendList =
                         (data['data']['recommend'] as List).cast(); // 商品推荐
+                    String floor1Title =
+                        data['data']['floor1Pic']['PICTURE_ADDRESS']; //楼层1的标题图片
+                    String floor2Title =
+                        data['data']['floor2Pic']['PICTURE_ADDRESS']; //楼层2的标题图片
+                    String floor3Title =
+                        data['data']['floor3Pic']['PICTURE_ADDRESS']; //楼层3的标题图片
+                    List<Map> floor1 =
+                        (data['data']['floor1'] as List).cast(); //楼层1商品和图片
+                    List<Map> floor2 =
+                        (data['data']['floor2'] as List).cast(); //楼层2商品和图片
+                    List<Map> floor3 =
+                        (data['data']['floor3'] as List).cast(); //楼层3商品和图片
                     return Column(
                       children: <Widget>[
                         SwiperDiy(swiperDateList: swiper),
@@ -58,7 +72,13 @@ class _HomePageState extends State<HomePage>
                         AdBanner(adPicture: adPicture),
                         LeaderPhone(
                             leaderImage: leaderImage, leaderPhone: leaderPhone),
-                        Recommend(recommendList: recommendList)
+                        Recommend(recommendList: recommendList),
+                        FloorTitle(picture_address: floor1Title),
+                        FloorContent(floorGoodsList: floor1),
+                        FloorTitle(picture_address: floor2Title),
+                        FloorContent(floorGoodsList: floor2),
+                        FloorTitle(picture_address: floor3Title),
+                        FloorContent(floorGoodsList: floor3),
                       ],
                     );
                   } else {
