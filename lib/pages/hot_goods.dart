@@ -1,7 +1,7 @@
 /*
  * @Author: daiGuilin
  * @Date: 2020-05-21 15:55:19
- * @LastEditTime: 2020-05-21 16:13:23
+ * @LastEditTime: 2020-05-22 10:14:41
  * @LastEditors: daiGuilin
  */
 import 'dart:convert';
@@ -10,36 +10,17 @@ import 'package:flutter/material.dart';
 import '../service/service_method.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 
-class HotGoods extends StatefulWidget {
-  HotGoods({Key key}) : super(key: key);
+// class HotGoods extends StatefulWidget {
+//   final List<Map> hotGoodsList;
+//   HotGoods({Key key, this.hotGoodsList}) : super(key: key);
 
-  @override
-  _HotGoodsState createState() => _HotGoodsState();
-}
+//   @override
+//   _HotGoodsState createState() => _HotGoodsState();
+// }
 
-class _HotGoodsState extends State<HotGoods> {
-  int page = 1;
-  List<Map> hotGoodsList = [];
-
-  //火爆商品接口
-  void _getHotGoods() {
-    var formPage = {'page': page};
-    request('homePageBelowConten', formPage).then((val) {
-      var data = jsonDecode(val.toString());
-      List<Map> newGoodsList = (data['data'] as List).cast();
-      setState(() {
-        hotGoodsList.addAll(newGoodsList);
-        page++;
-      });
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _getHotGoods();
-  }
-
+class HotGoods extends StatelessWidget {
+  final List<Map> hotGoodsList;
+  HotGoods({Key key, this.hotGoodsList}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(

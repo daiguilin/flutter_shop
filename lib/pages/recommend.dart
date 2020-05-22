@@ -1,7 +1,7 @@
 /*
  * @Author: daiGuilin
  * @Date: 2020-05-20 09:18:54
- * @LastEditTime: 2020-05-20 10:05:23
+ * @LastEditTime: 2020-05-22 11:03:51
  * @LastEditors: daiGuilin
  */
 import 'package:flutter/material.dart';
@@ -30,8 +30,7 @@ class Recommend extends StatelessWidget {
     return InkWell(
       onTap: () {},
       child: Container(
-        height: ScreenUtil().setHeight(330),
-        width: ScreenUtil().setWidth(250),
+        width: ScreenUtil().setWidth(280),
         padding: EdgeInsets.all(8.0),
         decoration: BoxDecoration(
             color: Colors.white,
@@ -52,7 +51,7 @@ class Recommend extends StatelessWidget {
 
   Widget _recommedList() {
     return Container(
-      height: ScreenUtil().setHeight(330),
+      height: ScreenUtil().setHeight(380),
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: recommendList.length,
@@ -66,7 +65,6 @@ class Recommend extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: ScreenUtil().setHeight(380),
       margin: EdgeInsets.only(top: 10.0),
       child: Column(children: <Widget>[_titleWidget(), _recommedList()]),
     );
