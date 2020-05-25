@@ -1,7 +1,7 @@
 /*
  * @Author: daiGuilin
  * @Date: 2020-05-17 16:41:56
- * @LastEditTime: 2020-05-22 10:47:58
+ * @LastEditTime: 2020-05-25 09:57:59
  * @LastEditors: daiGuilin
  */
 import 'dart:convert';
@@ -178,6 +178,7 @@ class TopNavigator extends StatelessWidget {
       height: ScreenUtil().setHeight(320),
       padding: EdgeInsets.all(3.0),
       child: GridView.count(
+        physics: NeverScrollableScrollPhysics(),
         crossAxisCount: 5,
         padding: EdgeInsets.all(5.0),
         children: navigatorList.map((item) {
