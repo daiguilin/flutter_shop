@@ -1,7 +1,7 @@
 /*
  * @Author: daiGuilin
  * @Date: 2020-05-26 10:28:12
- * @LastEditTime: 2020-05-26 11:05:27
+ * @LastEditTime: 2020-05-26 15:18:42
  * @LastEditors: daiGuilin
  */
 import 'package:flutter/material.dart';
@@ -9,6 +9,8 @@ import '../service/service_method.dart';
 import 'dart:convert';
 import '../model/category.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provide/provide.dart';
+import '../provide/child_category.dart';
 
 class LeftCategoryNav extends StatefulWidget {
   LeftCategoryNav({Key key}) : super(key: key);
@@ -19,6 +21,7 @@ class LeftCategoryNav extends StatefulWidget {
 
 class _LeftCategoryNavState extends State<LeftCategoryNav> {
   List list = [];
+  var listIndex = 0; //索引
   @override
   void initState() {
     super.initState();
@@ -32,17 +35,29 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
       setState(() {
         list = category.data;
       });
+
+      Provide.value<ChildCategory>(context)
+          .getChildCategory(list[0].bxMallSubDto);
+      // print(list[0].bxMallSubDto);
     });
   }
 
   Widget _leftInWell(int index) {
+    bool isClick = false;
+    isClick = (index == listIndex) ? true : false;
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        var childList = list[index].bxMallSubDto;
+        setState(() {
+          listIndex = index;
+        });
+        Provide.value<ChildCategory>(context).getChildCategory(childList);
+      },
       child: Container(
         height: ScreenUtil().setHeight(100),
         padding: EdgeInsets.only(left: 10, top: 20),
         decoration: BoxDecoration(
-            color: Colors.white,
+            color: isClick ? Color.fromRGBO(236, 238, 239, 1.0) : Colors.white,
             border:
                 Border(bottom: BorderSide(width: 1, color: Colors.black12))),
         child: Text(list[index].mallCategoryName,

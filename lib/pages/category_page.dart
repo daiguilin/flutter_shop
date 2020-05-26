@@ -1,7 +1,7 @@
 /*
  * @Author: daiGuilin
  * @Date: 2020-05-17 16:42:17
- * @LastEditTime: 2020-05-26 11:07:16
+ * @LastEditTime: 2020-05-26 14:13:52
  * @LastEditors: daiGuilin
  */
 import 'package:flutter/material.dart';
@@ -9,6 +9,7 @@ import '../service/service_method.dart';
 import 'dart:convert';
 import '../model/category_example.dart';
 import './left_category_nav .dart';
+import './right_category_nav.dart';
 
 class CategoryPage extends StatefulWidget {
   @override
@@ -33,6 +34,19 @@ class _CategoryPageState extends State<CategoryPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(child: LeftCategoryNav());
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('商品分类'),
+      ),
+      body: Container(
+          child: Row(
+        children: <Widget>[
+          LeftCategoryNav(),
+          Column(
+            children: <Widget>[RightCategoryNav()],
+          )
+        ],
+      )),
+    );
   }
 }
