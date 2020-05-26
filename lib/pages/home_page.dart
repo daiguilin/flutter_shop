@@ -1,7 +1,7 @@
 /*
  * @Author: daiGuilin
  * @Date: 2020-05-17 16:41:56
- * @LastEditTime: 2020-05-25 09:57:59
+ * @LastEditTime: 2020-05-25 13:45:58
  * @LastEditors: daiGuilin
  */
 import 'dart:convert';
@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage>
   _getHomePageContent() {
     var formData = {'lon': '115.02932', 'lat': '35.76189'};
     return request('homePageContent', formData).then((val) {
-      print('首页内容==$val');
+      // print('首页内容=====$val');
       return val;
     });
   }
